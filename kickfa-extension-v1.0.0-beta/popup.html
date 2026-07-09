@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <title>KickFa</title>
+  <link rel="stylesheet" href="fonts.css" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="kfa-app">
+
+    <header class="kfa-header">
+      <div class="kfa-header-title">
+        <span class="kfa-logo">KF</span>
+        <div class="kfa-title-wrap">
+          <div class="kfa-title-row">
+            <span class="kfa-beta-tag">beta</span>
+            <h1>KickFa</h1>
+          </div>
+          <p>Farsi fonts for Kick chat</p>
+        </div>
+      </div>
+
+      <label class="kfa-switch" title="Enable / disable KickFa">
+        <input type="checkbox" id="enabledToggle" />
+        <span class="kfa-slider-track"></span>
+      </label>
+    </header>
+
+    <main class="kfa-body">
+
+      <!-- Live preview -->
+      <section class="kfa-preview-card">
+        <div class="kfa-preview-label">Live Preview</div>
+        <div id="previewText" class="kfa-preview-text">
+          کاربر۱۲۳: سلام! امروز استریم عالی بود GG 🔥 <span class="kfa-preview-en">— great stream today!</span>
+        </div>
+      </section>
+
+      <!-- NipahTV detected note (hidden by default) -->
+      <div id="nipahNote" class="kfa-note" hidden>
+        ⚡ NipahTV detected — it may override Font Size &amp; Line Height. Adjust the sliders below to try overriding it back.
+      </div>
+
+      <!-- Font preset (Persian + English pairing) -->
+      <section class="kfa-control" id="fontPresetSection">
+        <div class="kfa-control-row">
+          <label for="fontPresetSelect">Fonts</label>
+        </div>
+        <div class="kfa-select-wrap">
+          <select id="fontPresetSelect" class="kfa-select">
+            <option value="vazirmatn-inter">Vazirmatn + Inter (Default)</option>
+            <option value="shabnam-inter">Shabnam + Inter</option>
+            <option value="vazirmatn-ibmplexsans">Vazirmatn + IBM Plex Sans</option>
+            <option value="shabnam-ibmplexsans">Shabnam + IBM Plex Sans</option>
+          </select>
+        </div>
+        <p class="kfa-hint">Persian font pairs with an English font for mixed-language messages.</p>
+      </section>
+
+      <!-- Font size -->
+      <section class="kfa-control" id="fontSizeSection">
+        <div class="kfa-control-row">
+          <label for="fontSizeSlider">Font Size</label>
+          <span class="kfa-value" id="fontSizeValue">14px</span>
+        </div>
+        <input type="range" id="fontSizeSlider" min="10" max="28" step="1" value="14" />
+      </section>
+
+      <!-- Font weight -->
+      <section class="kfa-control">
+        <div class="kfa-control-row">
+          <label>Font Weight</label>
+        </div>
+        <div class="kfa-segmented" id="fontWeightGroup">
+          <button type="button" class="kfa-seg-btn" data-weight="400">Regular</button>
+          <button type="button" class="kfa-seg-btn" data-weight="500">Medium</button>
+          <button type="button" class="kfa-seg-btn" data-weight="700">Bold</button>
+        </div>
+      </section>
+
+      <!-- Line height -->
+      <section class="kfa-control" id="lineHeightSection">
+        <div class="kfa-control-row">
+          <label for="lineHeightSlider">Line Height</label>
+          <span class="kfa-value" id="lineHeightValue">1.5</span>
+        </div>
+        <input type="range" id="lineHeightSlider" min="1.0" max="2.2" step="0.1" value="1.5" />
+      </section>
+
+      <!-- Auto detect -->
+      <section class="kfa-control kfa-row-control">
+        <div>
+          <label>Auto Detect Typing</label>
+          <p class="kfa-hint">Chat text always uses your selected fonts. This only changes live typing detection.</p>
+        </div>
+        <label class="kfa-switch kfa-switch-small">
+          <input type="checkbox" id="autoDetectToggle" />
+          <span class="kfa-slider-track"></span>
+        </label>
+      </section>
+
+      <!-- Reset -->
+      <button type="button" id="resetBtn" class="kfa-reset-btn">
+        Reset to Defaults
+      </button>
+
+    </main>
+
+    <footer class="kfa-footer">
+      <span id="statusText">Settings sync automatically</span>
+      <a class="kfa-credit" href="https://kick.com/ASHYcraft" target="_blank" rel="noopener noreferrer">Made by ASHYcraft</a>
+    </footer>
+
+  </div>
+
+  <script src="shared.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

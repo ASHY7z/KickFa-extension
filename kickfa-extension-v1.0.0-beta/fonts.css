@@ -1,0 +1,141 @@
+/* ==========================================================================
+   KickFa — fonts.css
+   --------------------------------------------------------------------------
+   BUG FIX (v1.3.0, follow-up): this file used to declare every @font-face
+   here with relative paths, e.g. `url("fonts/Vazirmatn-Regular.woff2")`.
+   That was observed resolving against the PAGE's origin once the
+   stylesheet actually ran on kick.com — the browser requested
+   https://kick.com/fonts/Vazirmatn-Regular.woff2 instead of the
+   extension's own chrome-extension://<id>/fonts/... URL, and got a 404.
+
+   Fix: this file no longer contains a single @font-face rule or url().
+   Every font file is now loaded exclusively through JavaScript using
+   chrome.runtime.getURL(), which always produces a fully-qualified,
+   unambiguous chrome-extension:// URL regardless of which page or
+   context it runs in:
+     - content.js's injectLightDomFontFaces() — light DOM / NipahTV
+     - content.js's buildShadowFontCSS()      — shadow roots / 7TV
+     - popup.js's injectPopupFontFaces()       — the popup's own preview
+   All three call the SAME kfaBuildFontFaceCSS() helper in shared.js, so
+   there is exactly one place that ever builds a font src URL.
+
+   This file is left with only the parts that never referenced an
+   external resource — the runtime-configurable CSS variables (updated by
+   content.js/popup.js whenever settings change) and the rules that
+   consume them. Those variables and rules still apply correctly here
+   regardless of which font-face source generated the actual @font-face
+   declarations, since this file only ever refers to the FAMILY NAMES via
+   var(), never a URL.
+
+   --------------------------------------------------------------------------
+   Font preset system recap: which family is USED is controlled entirely
+   by 3 CSS custom properties content.js writes onto :root at runtime:
+     --kfa-font-persian-auto   (Smart mode Persian face, unicode-range restricted)
+     --kfa-font-persian-full   (Force All mode Persian face, unrestricted)
+     --kfa-font-english        (the paired English face)
+   Font-family stack ordering: the English variable is listed FIRST in
+   every rule below, with the Persian variable right after. Inter and IBM
+   Plex Sans contain no Persian/Arabic glyphs, so this is safe — Persian
+   text still falls through correctly to the second font in the list —
+   but it GUARANTEES English text (including English words inside an
+   otherwise-Farsi message) always renders in the selected English font.
+
+   Disable-toggle bug fix recap: the exclusion chain below is wrapped in
+   `:not(:where(...))` so it contributes ZERO specificity, letting the
+   kill-switch rule (doubled `.kfa-disabled.kfa-disabled` class) reliably
+   win. (The chat INPUT box has a second half of this fix on the JS side
+   — content.js's refreshAllEditableFonts().)
+
+   This file only reaches the light DOM (NipahTV). 7TV's shadow-root chat
+   gets an equivalent copy of these rules from content.js's
+   buildShadowFontCSS() — keep the two in sync.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Runtime-configurable variables — content.js updates these on :root
+   whenever settings change. These DO inherit across shadow boundaries.
+   The font-family values here are just a sane pre-JS fallback (matches
+   the "vazirmatn-inter" default preset); content.js overwrites them the
+   moment settings load.
+   -------------------------------------------------------------------------- */
+:root {
+  --kfa-font-size: 14px;
+  --kfa-font-weight: 400;
+  --kfa-line-height: 1.5;
+  --kfa-font-persian-auto: "Vazirmatn-Auto";
+  --kfa-font-persian-full: "Vazirmatn-Full";
+  --kfa-font-english: "Inter";
+}
+
+/* --------------------------------------------------------------------------
+   MESSAGE ROW — full treatment for everything in it, including usernames
+   and quote/reply previews. Only icons, form controls, and timestamps are
+   excluded — 7TV may render real text such as @mentions through
+   badge-like wrappers, so those must still receive the chat font. The
+   exclusion list is wrapped in :not(:where(...)) so it contributes ZERO
+   specificity (see file header) while matching identically.
+   -------------------------------------------------------------------------- */
+.kfa-farsi,
+.kfa-farsi *:not(:where(i, svg, path, img, input, select, option, time, [class*="icon" i], [class*="timestamp" i])) {
+  font-family: var(--kfa-font-english), var(--kfa-font-persian-auto),
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif !important;
+  font-weight: var(--kfa-font-weight) !important;
+  font-size: var(--kfa-font-size) !important;
+  line-height: var(--kfa-line-height) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Live-typing support in the chat input box — full treatment, always
+   applied. Uses the Force-All (unrestricted) Persian face since typed
+   text isn't row-tagged/detected the way rendered messages are.
+   -------------------------------------------------------------------------- */
+.kfa-vazir-input {
+  font-family: var(--kfa-font-english), var(--kfa-font-persian-full),
+    var(--kfa-font-persian-auto), -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  font-weight: var(--kfa-font-weight) !important;
+  font-size: var(--kfa-font-size) !important;
+  line-height: var(--kfa-line-height) !important;
+}
+
+.kfa-vazir-input.kfa-rtl-input {
+  direction: rtl !important;
+  text-align: right !important;
+  unicode-bidi: plaintext !important;
+}
+
+/* --------------------------------------------------------------------------
+   Force-All mode -> apply the selected pair within the chat area
+   unconditionally, tagged or not. Scoped to `.kfa-chat-root` — the marker
+   class content.js adds to each confirmed light-DOM chat container —
+   never to `body`.
+   -------------------------------------------------------------------------- */
+html.kfa-force-all .kfa-chat-root,
+html.kfa-force-all .kfa-chat-root *:not(:where(i, svg, path, img, input, select, option, time, [class*="icon" i], [class*="timestamp" i])) {
+  font-family: var(--kfa-font-english), var(--kfa-font-persian-full),
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif !important;
+  font-weight: var(--kfa-font-weight) !important;
+  font-size: var(--kfa-font-size) !important;
+  line-height: var(--kfa-line-height) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Master kill-switch — one class flip, instant, no DOM walk needed.
+   `.kfa-disabled.kfa-disabled` (repeated class) gives this a small
+   deliberate specificity edge over the rules above so it always wins,
+   not just when it happens to tie and win on source order. Declared last
+   regardless, as a second line of defense.
+   -------------------------------------------------------------------------- */
+html.kfa-disabled.kfa-disabled .kfa-farsi,
+html.kfa-disabled.kfa-disabled .kfa-farsi *,
+html.kfa-disabled.kfa-disabled .kfa-vazir-input,
+html.kfa-disabled.kfa-disabled .kfa-rtl-input,
+html.kfa-disabled.kfa-disabled .kfa-chat-root,
+html.kfa-disabled.kfa-disabled .kfa-chat-root * {
+  font-family: inherit !important;
+  font-weight: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+}

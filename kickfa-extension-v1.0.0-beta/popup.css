@@ -1,0 +1,469 @@
+/* ==========================================================================
+   KickFa — popup.css
+   Dark black theme with neon green (#00ff9d) accents.
+   ========================================================================== */
+
+:root {
+  --kfa-bg-deep: #060706;
+  --kfa-bg-panel: rgba(255, 255, 255, 0.035);
+  --kfa-bg-panel-strong: rgba(255, 255, 255, 0.07);
+  --kfa-border: rgba(0, 255, 157, 0.16);
+  --kfa-border-soft: rgba(255, 255, 255, 0.08);
+  --kfa-accent: #00ff9d;
+  --kfa-accent-dim: rgba(0, 255, 157, 0.18);
+  --kfa-text-primary: #eafff4;
+  --kfa-text-secondary: #7d9a8c;
+  --kfa-radius: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  width: 340px;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(0, 255, 157, 0.12), transparent 55%),
+    radial-gradient(circle at 100% 15%, rgba(0, 255, 157, 0.06), transparent 50%),
+    var(--kfa-bg-deep);
+  color: var(--kfa-text-primary);
+  font-family: "Vazirmatn-Auto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 13px;
+}
+
+.kfa-app {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+}
+
+/* ---------------- Header ---------------- */
+
+.kfa-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--kfa-border-soft);
+}
+
+.kfa-header-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.kfa-title-wrap {
+  position: relative;
+}
+
+.kfa-title-row {
+  position: relative;
+  display: inline-block;
+}
+
+.kfa-beta-tag {
+  position: absolute;
+  top: -12px;
+  right: 0;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--kfa-bg-deep);
+  background: var(--kfa-accent);
+  padding: 1px 5px;
+  border-radius: 6px;
+  line-height: 1.3;
+  white-space: nowrap;
+  box-shadow: 0 0 6px rgba(0, 255, 157, 0.5);
+}
+
+.kfa-logo {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #041108;
+  background: var(--kfa-accent);
+  box-shadow: 0 0 18px rgba(0, 255, 157, 0.5);
+  flex-shrink: 0;
+}
+
+.kfa-header-title h1 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: var(--kfa-accent);
+}
+
+.kfa-header-title p {
+  margin: 2px 0 0;
+  font-size: 11px;
+  color: var(--kfa-text-secondary);
+}
+
+/* ---------------- Body / cards ---------------- */
+
+.kfa-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.kfa-preview-card {
+  background: var(--kfa-bg-panel);
+  border: 1px solid var(--kfa-border);
+  border-radius: var(--kfa-radius);
+  padding: 14px;
+  backdrop-filter: blur(10px);
+}
+
+.kfa-preview-label {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--kfa-text-secondary);
+  margin-bottom: 8px;
+}
+
+.kfa-preview-text {
+  direction: rtl;
+  text-align: right;
+  /* Mirrors the real chat stack ordering: English var first so English
+     glyphs always render in the selected English font, Persian (Full)
+     var right after for the Farsi portion — see fonts.css header. */
+  font-family: var(--kfa-font-english, "Inter"), var(--kfa-font-persian-full, "Vazirmatn-Full"),
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: var(--kfa-font-size, 14px);
+  font-weight: var(--kfa-font-weight, 400);
+  line-height: var(--kfa-line-height, 1.5);
+  color: var(--kfa-text-primary);
+  word-break: break-word;
+}
+
+.kfa-preview-en {
+  direction: ltr;
+  unicode-bidi: isolate;
+  display: inline-block;
+  font-family: var(--kfa-font-english, "Inter"), -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, sans-serif;
+  color: var(--kfa-text-secondary);
+}
+
+.kfa-control {
+  background: var(--kfa-bg-panel);
+  border: 1px solid var(--kfa-border-soft);
+  border-radius: var(--kfa-radius);
+  padding: 12px 14px;
+}
+
+.kfa-control-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.kfa-control label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--kfa-text-primary);
+}
+
+.kfa-hint {
+  margin: 3px 0 0;
+  font-size: 10.5px;
+  color: var(--kfa-text-secondary);
+  line-height: 1.4;
+  max-width: 210px;
+}
+
+.kfa-value {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--kfa-accent);
+  background: var(--kfa-accent-dim);
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.kfa-row-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* ---------------- Slider (range input) ---------------- */
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(0, 255, 157, 0.25), var(--kfa-accent));
+  outline: none;
+  cursor: pointer;
+  transition: filter 0.15s ease;
+}
+
+input[type="range"]:hover {
+  filter: brightness(1.15);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: #04150c;
+  border: 3px solid var(--kfa-accent);
+  box-shadow: 0 0 10px rgba(0, 255, 157, 0.65);
+  cursor: pointer;
+  margin-top: -5.5px;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: #04150c;
+  border: 3px solid var(--kfa-accent);
+  box-shadow: 0 0 10px rgba(0, 255, 157, 0.65);
+  cursor: pointer;
+}
+
+/* ---------------- Font preset dropdown ---------------- */
+
+.kfa-select-wrap {
+  position: relative;
+}
+
+.kfa-select {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: var(--kfa-bg-panel-strong);
+  border: 1px solid var(--kfa-border-soft);
+  border-radius: 9px;
+  color: var(--kfa-text-primary);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 9px 30px 9px 10px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.kfa-select:hover {
+  border-color: rgba(0, 255, 157, 0.35);
+}
+
+.kfa-select:focus {
+  outline: none;
+  border-color: var(--kfa-accent);
+  box-shadow: 0 0 0 3px var(--kfa-accent-dim);
+}
+
+.kfa-select option {
+  background: #0a0d0b;
+  color: var(--kfa-text-primary);
+}
+
+/* Custom chevron, since appearance:none removes the native one */
+.kfa-select-wrap::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--kfa-accent);
+  border-bottom: 2px solid var(--kfa-accent);
+  transform: translateY(-65%) rotate(45deg);
+  pointer-events: none;
+}
+
+/* ---------------- Segmented control (font weight) ---------------- */
+
+.kfa-segmented {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.kfa-seg-btn {
+  border: 1px solid var(--kfa-border-soft);
+  background: var(--kfa-bg-panel-strong);
+  color: var(--kfa-text-secondary);
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 7px 4px;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.kfa-seg-btn:hover {
+  color: var(--kfa-text-primary);
+  border-color: rgba(0, 255, 157, 0.35);
+}
+
+.kfa-seg-btn.active {
+  color: #04150c;
+  background: var(--kfa-accent);
+  border-color: transparent;
+  box-shadow: 0 0 14px rgba(0, 255, 157, 0.45);
+}
+
+/* ---------------- Toggle switch ---------------- */
+
+.kfa-switch {
+  position: relative;
+  display: inline-block;
+  width: 42px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.kfa-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.kfa-slider-track {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--kfa-border-soft);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.kfa-slider-track::before {
+  content: "";
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: 2px;
+  top: 2px;
+  background: #cfcfcf;
+  border-radius: 50%;
+  transition: transform 0.2s ease, background 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+.kfa-switch input:checked + .kfa-slider-track {
+  background: rgba(0, 255, 157, 0.28);
+  border-color: var(--kfa-accent);
+}
+
+.kfa-switch input:checked + .kfa-slider-track::before {
+  background: var(--kfa-accent);
+  box-shadow: 0 0 10px rgba(0, 255, 157, 0.65);
+  transform: translateX(18px);
+}
+
+.kfa-switch-small {
+  width: 38px;
+  height: 22px;
+}
+
+.kfa-switch-small .kfa-slider-track::before {
+  height: 16px;
+  width: 16px;
+}
+
+.kfa-switch-small input:checked + .kfa-slider-track::before {
+  transform: translateX(16px);
+}
+
+/* ---------------- Reset button ---------------- */
+
+.kfa-reset-btn {
+  width: 100%;
+  padding: 10px;
+  border-radius: var(--kfa-radius);
+  border: 1px solid var(--kfa-border);
+  background: transparent;
+  color: var(--kfa-text-secondary);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.kfa-reset-btn:hover {
+  color: var(--kfa-accent);
+  border-color: var(--kfa-accent);
+  box-shadow: 0 0 12px rgba(0, 255, 157, 0.25);
+}
+
+.kfa-reset-btn:active {
+  transform: scale(0.98);
+}
+
+/* ---------------- Footer ---------------- */
+
+.kfa-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+  font-size: 10px;
+  color: var(--kfa-text-secondary);
+  padding-top: 4px;
+}
+
+.kfa-credit {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--kfa-accent);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: text-shadow 0.15s ease;
+}
+
+.kfa-credit:hover {
+  text-decoration: underline;
+  text-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
+}
+
+/* Disabled state dims everything except the master toggle */
+.kfa-app.kfa-app-disabled .kfa-body {
+  opacity: 0.4;
+  pointer-events: none;
+  filter: grayscale(0.4);
+}
+
+/* ---------------- NipahTV detection note ---------------- */
+
+.kfa-note {
+  background: var(--kfa-accent-dim);
+  border: 1px solid var(--kfa-border);
+  border-radius: var(--kfa-radius);
+  padding: 10px 12px;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--kfa-accent);
+}

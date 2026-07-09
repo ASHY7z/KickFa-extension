@@ -1,0 +1,49 @@
+{
+  "manifest_version": 3,
+  "name": "KickFa — Farsi Font for Kick Chat",
+  "version": "1.0.0",
+  "version_name": "1.0.0 Beta",
+  "description": "Applies your choice of Persian font (Vazirmatn or Shabnam) paired with an English font (Inter or IBM Plex Sans) to Kick.com chat. Reliable on both NipahTV and 7TV.",
+  "author": "ASHY",
+
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "KickFa Settings"
+  },
+
+  "permissions": ["storage"],
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://kick.com/*", "*://*.kick.com/*"],
+      "css": ["fonts.css"],
+      "js": ["shared.js", "content.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+
+  "web_accessible_resources": [
+    {
+      "resources": ["fonts/*.woff2"],
+      "matches": ["*://kick.com/*", "*://*.kick.com/*"]
+    }
+  ]
+}
