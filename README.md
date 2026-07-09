@@ -70,6 +70,11 @@ You can choose either one — there is no difference in functionality.
 
 # 📥 Installation Instructions
 
+1. Download the latest `KickFa-extension.zip` from the [Releases](https://github.com/ASHY7z/KickFa-extension/releases) page.
+2. Extract the ZIP file to a folder on your computer.
+3. Follow the browser-specific instructions below.
+
+
 ## 🟢 For Google Chrome
 
 1. Download the latest version of KickFa-extension.
@@ -229,6 +234,10 @@ KickFa-extension امکان استفاده از فونت‌های فارسی و 
 ---
 
 # 📥 راهنمای نصب
+
+1. فایل `KickFa-extension.zip` را از صفحه [Releases](https://github.com/ASHY7z/KickFa-extension/releases) دانلود کنید.
+2. فایل ZIP را Extract کنید.
+3. دستورالعمل‌های مربوط به مرورگر خود را دنبال کنید.
 
 ## 🟢 نصب در Google Chrome
 
