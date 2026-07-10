@@ -8,17 +8,6 @@ KickFa-extension adds support for Persian and English fonts on **Kick.com chat**
 
 # 📸 Preview
 
-Add screenshots here:
-
-### 📸 Previews
-
-
-<p align="center">
-  <img src="kickfa-extension-v1.0.0-beta/icons/screenshots/chat-preview.png" 
-       width="38%" 
-       style="vertical-align: top; margin-right: 20px;" 
-       alt="Chat Preview">
-
   <img src="kickfa-extension-v1.0.0-beta/icons/screenshots/settings.png" 
        width="38%" 
        style="vertical-align: top;" 
